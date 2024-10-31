@@ -84,34 +84,35 @@ CREATE TABLE IF NOT EXISTS language (
                                         PRIMARY KEY (language_id)
 );
    /*
-/* Del 2
 
+ */
+/* Del 2
 CREATE TABLE IF NOT EXISTS book (
-                                    isbn CHAR(13) PRIMARY KEY,
-                                    title VARCHAR(255),
-                                    language_id INT,
-                                    author_id INT,
+                                    isbn CHAR(13) PRIMARY KEY NOT NULL,
+                                    title VARCHAR(255) NOT NULL ,
+                                    language_id INT NOT NULL ,
+                                    author_id INT NOT NULL ,
                                     price DECIMAL(5,2),
                                     publication_date DATE,
                                     FOREIGN KEY (author_id) REFERENCES author(id),
                                     FOREIGN KEY (language_id) REFERENCES language(language_id)
 );
- */
+*/
 
 /* Del 3
 CREATE TABLE IF NOT EXISTS bookstore (
-                                         id INT AUTO_INCREMENT,
-                                         store_name VARCHAR(255),
-                                         city VARCHAR(255),
-                                         PRIMARY KEY (id)
+                                         id INT AUTO_INCREMENT NOT NULL,
+                                         store_name VARCHAR(255) NOT NULL,
+                                         city VARCHAR(255) NOT NULL,
+                                         PRIMARY KEY (id) NOT NULL
 );
 */
 
 /* Del 4
 CREATE TABLE IF NOT EXISTS inventory (
-                                         store_id INT,
-                                         isbn CHAR(13),
-                                         amount INT,
+                                         store_id INT NOT NULL,
+                                         isbn CHAR(13) NOT NULL,
+                                         amount INT NOT NULL,
                                          PRIMARY KEY (store_id, isbn),
                                          FOREIGN KEY (store_id) REFERENCES bookstore(id),
                                          FOREIGN KEY (isbn) REFERENCES book(isbn)
@@ -148,7 +149,6 @@ INSERT INTO inventory (store_id, isbn, amount)
 VALUES
     (1, '9781234567899', 5),
     (2, '9781234567890', 10);
-
  */
 
 
@@ -162,7 +162,6 @@ FROM author a
          JOIN book b ON a.id = b.author_id
          JOIN inventory i ON b.isbn = i.isbn
 GROUP BY a.id;
-
  */
 
 /* Del 6
